@@ -8,7 +8,6 @@ import model.Matricula;
 
 public class MatriculaControl {
 	private EntityManager em;
-	
 	public MatriculaControl() {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("projeto");
 		em = emf.createEntityManager();
