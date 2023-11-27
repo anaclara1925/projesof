@@ -2,6 +2,8 @@ package control;
 
 import java.util.List;
 import model.Aluno;
+import model.Matricula;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -13,11 +15,38 @@ private EntityManager em;
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("projeto");
 		em = emf.createEntityManager();
 }
-	public void inserir(AlunoControl objeto) {}
-	public void alterar(AlunoControl objeto) {}
-	public void excluir(AlunoControl objeto) {}
+	public void inserir(Aluno objeto) {
+		 try {
+	            em.getTransaction().begin();
+	            em.persist(objeto);
+	            em.getTransaction().commit();
+	         } catch (Exception ex) {
+	            ex.printStackTrace();
+	            em.getTransaction().rollback();
+	         }
+	}
+	public void alterar(AlunoControl objeto) {
+		try {
+            em.getTransaction().begin();
+            em.merge(objeto);
+            em.getTransaction().commit();
+         } catch (Exception ex) {
+            ex.printStackTrace();
+            em.getTransaction().rollback();
+         }
+	}
+	public void excluir(AlunoControl objeto) {
+		try {
+            em.getTransaction().begin();
+            em.remove(objeto);
+            em.getTransaction().commit();
+         } catch (Exception ex) {
+            ex.printStackTrace();
+            em.getTransaction().rollback();
+         }
+	}
 public void excluirPorId(Integer id) {}
-	public AlunoControl buscarPorId(Integer id) {return null;}
+	public Aluno buscarPorId(Integer id) {return em.find(Aluno.class, id);}
 	public List<AlunoControl> buscarTodos() {return null;}
 	//outros métodos de busca que achar necessário
 

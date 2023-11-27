@@ -12,11 +12,38 @@ public class MatriculaControl {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("projeto");
 		em = emf.createEntityManager();
 }
-	public void inserir(Matricula objeto) {}
-	public void alterar(Matricula objeto) {}
-	public void excluir(Matricula objeto) {}
+	public void inserir(Matricula objeto) {
+		try {
+            em.getTransaction().begin();
+            em.persist(objeto);
+            em.getTransaction().commit();
+         } catch (Exception ex) {
+            ex.printStackTrace();
+            em.getTransaction().rollback();
+         }
+	}
+	public void alterar(Matricula objeto) {
+		 try {
+	            em.getTransaction().begin();
+	            em.merge(objeto);
+	            em.getTransaction().commit();
+	         } catch (Exception ex) {
+	            ex.printStackTrace();
+	            em.getTransaction().rollback();
+	         }
+	}
+	public void excluir(Matricula objeto) {
+		try {
+            em.getTransaction().begin();
+            em.remove(objeto);
+            em.getTransaction().commit();
+         } catch (Exception ex) {
+            ex.printStackTrace();
+            em.getTransaction().rollback();
+         }
+	}
 public void excluirPorId(Integer id) {}
-	public Matricula buscarPorId(Integer id) {return null;}
+	public Matricula buscarPorId(Integer id) {return em.find(Matricula.class, id);}
 	public List<MatriculaControl> buscarTodos() {return null;}
-	//outros métodos de busca que achar necessário
+	//outros métodos de busca que achar necessario
 } 
