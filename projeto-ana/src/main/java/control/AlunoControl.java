@@ -35,7 +35,7 @@ private EntityManager em;
             em.getTransaction().rollback();
          }
 	}
-	public void excluir(AlunoControl objeto) {
+	public void excluir(Aluno objeto) {
 		try {
             em.getTransaction().begin();
             em.remove(objeto);
@@ -45,9 +45,18 @@ private EntityManager em;
             em.getTransaction().rollback();
          }
 	}
-public void excluirPorId(Integer id) {}
+public void excluirPorId(Integer id) {
+	try {
+        Aluno objeto = buscarPorId(id);
+        excluir(objeto);
+     } catch (Exception ex) {
+        ex.printStackTrace();
+     }
+}
 	public Aluno buscarPorId(Integer id) {return em.find(Aluno.class, id);}
-	public List<AlunoControl> buscarTodos() {return null;}
+	public List<AlunoControl> buscarTodos() {String nomeClasse = Aluno.class.getName();
+	return em.createQuery("FROM " + nomeClasse).getResultList();
+}
 	//outros métodos de busca que achar necessário
 
 }

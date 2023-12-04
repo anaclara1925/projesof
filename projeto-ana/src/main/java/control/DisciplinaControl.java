@@ -45,8 +45,18 @@ public class DisciplinaControl {
 	            em.getTransaction().rollback();
 	         }
 	}
-public void excluirPorId(Integer id) {}
+public void excluirPorId(Integer id) {
+	try {
+        Disciplina objeto = buscarPorId(id);
+        excluir(objeto);
+     } catch (Exception ex) {
+        ex.printStackTrace();
+     }
+
+}
 	public Disciplina buscarPorId(Integer id) {return em.find(Disciplina.class, id);}
-	public List<DisciplinaControl> buscarTodos() {return null;}
-	//outros métodos de busca que achar necessário
+	public List<DisciplinaControl> buscarTodos() {String nomeClasse = Disciplina.class.getName();
+	return em.createQuery("FROM " + nomeClasse).getResultList();
+}
+	//outros métodos de busca que achar necessário.
 }
