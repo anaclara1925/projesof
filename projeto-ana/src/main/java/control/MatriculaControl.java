@@ -64,5 +64,5 @@ public class MatriculaControl {
 		String nomeClasse = Matricula.class.getName();
 		return em.createQuery("FROM " + nomeClasse).getResultList();
 	}
-	// outros métodos de busca que achar necessario
+	// outros métodos de busca que achar necessario.
 }
