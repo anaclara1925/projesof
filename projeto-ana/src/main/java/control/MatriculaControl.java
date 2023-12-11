@@ -60,7 +60,7 @@ public class MatriculaControl {
 		return em.find(Matricula.class, id);
 	}
 
-	public List<MatriculaControl> buscarTodos() {
+	public List<Matricula> buscarTodos() {
 		String nomeClasse = Matricula.class.getName();
 		return em.createQuery("FROM " + nomeClasse).getResultList();
 	}
